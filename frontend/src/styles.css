@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/* Modo oscuro por clase en <html> (lo alterna el perfil y se recuerda en el navegador). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Paleta del diseño AgroSpec (Figma). */
+:root {
+  --agro-green: #2d7a2d;
+  --agro-green-dark: #1a5c1a;
+  --agro-green-light: #5cb85c;
+  --agro-yellow: #d9a514;
+  --agro-red: #d9534f;
+  --agro-blue: #3498db;
+  --agro-orange: #e67e22;
+  --agro-earth: #8b6f47;
+  --background: #f8faf7;
+  --foreground: #1a3d1a;
+  --card: #ffffff;
+  --muted: #e8ede6;
+  --muted-foreground: #5a6b5a;
+  --border: rgb(45 122 45 / 0.15);
+  --input: #f3f5f2;
+  color-scheme: light;
+}
+
+.dark {
+  --agro-green: #5cb85c;
+  --agro-green-dark: #2d7a2d;
+  --agro-green-light: #7ed97e;
+  --agro-yellow: #f5c842;
+  --agro-red: #e74c3c;
+  --agro-earth: #a58a60;
+  --background: #0f1f0f;
+  --foreground: #e8ede6;
+  --card: #1a2d1a;
+  --muted: #2a3d2a;
+  --muted-foreground: #a5b5a5;
+  --border: rgb(92 184 92 / 0.2);
+  --input: #213421;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-agro: var(--agro-green);
+  --color-agro-dark: var(--agro-green-dark);
+  --color-agro-light: var(--agro-green-light);
+  --color-amarillo: var(--agro-yellow);
+  --color-rojo: var(--agro-red);
+  --color-azul: var(--agro-blue);
+  --color-naranja: var(--agro-orange);
+  --color-tierra: var(--agro-earth);
+  --color-fondo: var(--background);
+  --color-texto: var(--foreground);
+  --color-tarjeta: var(--card);
+  --color-suave: var(--muted);
+  --color-tenue: var(--muted-foreground);
+  --color-borde: var(--border);
+  --color-campo: var(--input);
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-fondo text-texto font-sans antialiased;
+    min-height: 100dvh;
+  }
+  h1 { @apply text-2xl font-semibold tracking-tight; }
+  h2 { @apply text-xl font-semibold tracking-tight; }
+  h3 { @apply text-lg font-semibold; }
+  h4 { @apply text-base font-semibold; }
+  button, [role="button"] { cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+  :focus-visible { outline: 2px solid var(--agro-green); outline-offset: 2px; }
+}
+
+@layer components {
+  .tarjeta { @apply bg-tarjeta border border-borde rounded-xl; }
+  .campo {
+    @apply w-full px-4 py-3 bg-campo rounded-lg border border-borde text-texto placeholder:text-tenue/70
+           focus:outline-none focus:ring-2 focus:ring-agro transition-shadow;
+  }
+  .boton {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-agro text-white font-medium
+           hover:bg-agro-dark transition-colors disabled:opacity-50 disabled:hover:bg-agro;
+  }
+  .dark .boton { @apply text-[#0f1f0f]; }
+  .boton-borde {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-borde font-medium
+           hover:bg-suave transition-colors disabled:opacity-50;
+  }
+  .cabecera {
+    @apply bg-gradient-to-r from-[#2d7a2d] to-[#1a5c1a] text-white;
+  }
+  .cristal { @apply bg-white/10 backdrop-blur-sm rounded-lg; }
+  .etiqueta { @apply block mb-2 text-sm font-medium; }
+}
+
+/* Leaflet: controles con la estética de la app. */
+.leaflet-container { font: inherit; background: var(--muted); }
+.leaflet-control-layers, .leaflet-bar a, .leaflet-bar {
+  border-radius: 0.6rem !important;
+  border-color: var(--border) !important;
+}
+.leaflet-control-zoom { border: none !important; box-shadow: 0 1px 4px rgb(0 0 0 / 0.25) !important; }
+.capa-pixelada { image-rendering: pixelated; }
+.marca-pixel {
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--agro-blue);
+  box-shadow: 0 0 0 2px rgb(0 0 0 / 0.35);
+}
+.pixelada { image-rendering: pixelated; }
+
+/* Barra inferior: respeta el área segura de los iPhone. */
+.zona-segura { padding-bottom: env(safe-area-inset-bottom); }
+
+@keyframes aparecer { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.aparecer { animation: aparecer 0.35s ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  .aparecer, .animate-spin, .animate-pulse { animation: none !important; }
+}

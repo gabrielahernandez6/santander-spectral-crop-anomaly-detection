@@ -1,0 +1,22 @@
+# Entornos y dependencias
+.venv/
+node_modules/
+__pycache__/
+.pytest_cache/
+frontend/dist/
+
+# Datos generados (modelos, resultados, base de datos): se regeneran, no se versionan
+backend/datos/
+ml/salidas_demo/
+ml/entrenamiento_demo.log
+*.zip
+
+# Registros de ejecución local
+*.log
+
+# Entorno y editores
+.env
+.env.*
+.vscode/
+.idea/
+*.tsbuildinfo

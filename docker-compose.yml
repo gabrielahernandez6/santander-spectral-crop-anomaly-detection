@@ -1,0 +1,19 @@
+# Prototipo completo: http://localhost:8080
+# Antes de levantarlo: paquete de modelos en backend/datos/modelos y precálculo hecho (ver README).
+services:
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend/datos:/datos
+      # Dataset de escenas, solo para correr el precálculo dentro del contenedor (opcional):
+      # - ../TFG_Sentinel2_Santander/data/mass_dataset_palma_2025_industrial_FINAL_CLEAN:/dataset:ro
+    environment:
+      - APP_CORS=http://localhost:8080
+    restart: unless-stopped
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped

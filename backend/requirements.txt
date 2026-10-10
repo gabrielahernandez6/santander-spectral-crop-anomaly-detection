@@ -1,0 +1,12 @@
+# scikit-learn DEBE coincidir con la versión con que se entrenaron los .joblib
+# (ver "versiones" en datos/modelos/configuracion_app.json). Cambie la línea si su corrida de Kaggle usó otra.
+scikit-learn==1.5.2
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+python-multipart==0.0.20
+numpy==1.26.4
+scipy==1.13.1
+onnxruntime==1.20.1
+rasterio==1.4.3
+pillow==11.0.0
+pydantic==2.10.4

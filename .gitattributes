@@ -1,0 +1,5 @@
+# Fin de línea LF en el repositorio (los contenedores son Linux)
+* text=auto eol=lf
+*.png binary
+*.onnx binary
+*.joblib binary
