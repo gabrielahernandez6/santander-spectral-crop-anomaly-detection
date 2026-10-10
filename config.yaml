@@ -1,0 +1,57 @@
+test_mode: false
+estimate_only: false
+
+study_area:
+  name: Santander
+  country: Colombia
+  boundary_path: data/boundaries/santander.geojson
+
+sentinel:
+  collection: sentinel-2-l2a
+  max_cloud_cover: 60
+  resolution: 10
+  bands:
+    - B01
+    - B02
+    - B03
+    - B04
+    - B05
+    - B06
+    - B07
+    - B08
+    - B8A
+    - B09
+    - B11
+    - B12
+
+temporal:
+  start_date: "2025-01-01"
+  end_date: "2025-12-31"
+  months: 12
+
+selector:
+  mode: best_monthly          # "best_monthly" = 1 imagen/mes   o   "all_usable" = todas las escenas con cloud<=max
+  min_days_between: 1         # (solo para all_usable) evita escenas muy cercanas en el tiempo
+
+palm:
+  classes:
+    - 1
+    - 2
+  minimum_area_hectares: 0.5
+  map_zip_path: data/palm_map/GlobalOilPalm_OP-extent.zip
+  map_dir: data/palm_map/GlobalOilPalm_OP-extent
+  output_aoi: data/aoi/palma_santander.geojson
+
+catalog:
+  limit_per_page: 20
+  max_pages: 50
+  save_responses: true
+  save_dir: data/catalog
+
+output:
+  root: data/processed
+  crop_type: palma
+  format: GTiff
+
+logging:
+  level: INFO
